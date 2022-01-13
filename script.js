@@ -1,3 +1,5 @@
+'use strict'
+
 /* ToDo Стрелочные функции */
 // function fu (x, y) {
 //   return x + y;
@@ -167,12 +169,17 @@
 // }
 // console.log(err);
 
+var arr1 = [1,2,3,4,5];
+var arr2 = [5,6,7];
 
+var [first,second, ...other] = arr1;
 
+var arr3 = [
+  ...arr1,
+  ...arr2
+]
 
-
-
-
+console.log(arr3);
 
 
 
