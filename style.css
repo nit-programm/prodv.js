@@ -1,0 +1,12 @@
+.goods-list{
+    display: flex;
+    max-width: 1024px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+.good-item{
+    border: 1px solid black;
+    padding: 15px;
+}
