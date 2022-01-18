@@ -1,12 +1,32 @@
 'use strict';
 
+class basketList{
+  constructor(){
+
+  }
+  remove(){
+    
+  }
+}
+
+class basketItem{
+  constructor(title,price,count){
+    this.title = title;
+    this.price = price;
+    this.count = count;
+  }
+  counter(){
+
+  }
+}
+
 class GoodsItem {
   constructor(title,price){
     this.title = title;
     this.price = price;
   }
   render() {
-    return `<div class='good-item'><h3>${title}</h3><p>${price}</p></div>`;
+    return `<div class='goods-item'><h3>${this.title}</h3><p>${this.price}</p></div>`;
   }
 }
 
@@ -26,6 +46,15 @@ class GoodsList{
       { title: 'Shoes', price: 250 },
     ];
   }
+  
+  sumPrice(){
+    let sum = 0;
+    this.goods.forEach(good => {
+      sum += good.price;
+    });
+    return sum;
+  }
+
   render(){
     let listHtml = ''
     this.goods.forEach(good => {
@@ -37,6 +66,6 @@ class GoodsList{
 }
 
 const list = new GoodsList();
-list.fetchGoods;
-list.render;
+list.fetchGoods();
+list.render();
 
