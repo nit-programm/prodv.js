@@ -74,11 +74,7 @@ class GoodsList{
   }  
   
   sumPrice(){
-    let sum = 0;
-    this.goods.forEach(good => {
-      sum += good.price;
-    });
-    return sum;
+    return this.goods.reduce((prev,{price}, array) => prev + price, 0);
   }
 
 }
