@@ -21,29 +21,9 @@ function makeGETRequest(url, callback) {
 
 const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
-class basketList{
-  constructor(){
-
-  }
-  remove(){
-    
-  }
-}
-
-class basketItem{
-  constructor(title,price,count){
-    this.title = title;
-    this.price = price;
-    this.count = count;
-  }
-  counter(){
-
-  }
-}
-
 class GoodsItem {
-  constructor(title,price){
-    this.title = title;
+  constructor(product_name,price){
+    this.product_name = product_name;
     this.price = price;
   }
   render() {
