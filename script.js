@@ -1,5 +1,26 @@
 'use strict';
 
+/* const prom = new Promise((resolve,reject) => {
+
+  function makeGETRequest(url) {
+    var xhr;
+  
+    if (window.XMLHttpRequest) {
+      xhr = new XMLHttpRequest();
+    } else if (window.ActiveXObject) { 
+      xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    resolve(xhr,url);
+  }
+
+});
+
+prom.then((xhr,url) => {
+  xhr.responseText;
+  xhr.open('GET', url, true);
+  xhr.send();
+}); */
+
 function makeGETRequest(url, callback) {
   var xhr;
 
