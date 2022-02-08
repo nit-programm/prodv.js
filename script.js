@@ -1,27 +1,8 @@
 'use strict';
 
-/* const prom = new Promise((resolve,reject) => {
 
-  function makeGETRequest(url) {
-    var xhr;
-  
-    if (window.XMLHttpRequest) {
-      xhr = new XMLHttpRequest();
-    } else if (window.ActiveXObject) { 
-      xhr = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    resolve(xhr,url);
-  }
 
-});
-
-prom.then((xhr,url) => {
-  xhr.responseText;
-  xhr.open('GET', url, true);
-  xhr.send();
-}); */
-
-function makeGETRequest(url, callback) {
+/* function makeGETRequest(url, callback) {
   var xhr;
 
   if (window.XMLHttpRequest) {
@@ -38,6 +19,25 @@ function makeGETRequest(url, callback) {
 
   xhr.open('GET', url, true);
   xhr.send();
+} */
+
+function makeGETRequest(url) {
+  return new Promise((resolve) => {
+    var xhr;
+
+    if (window.XMLHttpRequest) {
+      xhr = new XMLHttpRequest();
+    } else if (window.ActiveXObject) { 
+      xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  
+    xhr.open('GET', url, true);
+    xhr.send();
+    xhr.onload = (event) => {
+      resolve(JSON.parse(event.target.responseText))
+    }
+  })
+
 }
 
 const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
@@ -58,9 +58,16 @@ class GoodsList{
     this.goods = [];
   }
 
-  fetchGoods(cb) {
+/*   fetchGoods(cb) {
     makeGETRequest(`${API_URL}/catalogData.json`, (goods) => {
       this.goods = JSON.parse(goods);
+      cb();
+    })
+  } */
+
+  fetchGoods(cb) {
+    makeGETRequest(`${API_URL}/catalogData.json`).then((goods) => {
+      this.goods = goods;
       cb();
     })
   }
