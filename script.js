@@ -1,26 +1,5 @@
 'use strict';
 
-
-
-/* function makeGETRequest(url, callback) {
-  var xhr;
-
-  if (window.XMLHttpRequest) {
-    xhr = new XMLHttpRequest();
-  } else if (window.ActiveXObject) { 
-    xhr = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      callback(xhr.responseText);
-    }
-  }
-
-  xhr.open('GET', url, true);
-  xhr.send();
-} */
-
 function makeGETRequest(url) {
   return new Promise((resolve) => {
     var xhr;
@@ -56,25 +35,20 @@ class GoodsItem {
 class GoodsList{
   constructor(){
     this.goods = [];
+    this.filteredGoods = [];
   }
-
-/*   fetchGoods(cb) {
-    makeGETRequest(`${API_URL}/catalogData.json`, (goods) => {
-      this.goods = JSON.parse(goods);
-      cb();
-    })
-  } */
 
   fetchGoods(cb) {
     makeGETRequest(`${API_URL}/catalogData.json`).then((goods) => {
       this.goods = goods;
+      this.filteredGoods = goods;
       cb();
     })
   }
   
   render(){
     let listHtml = ''
-    this.goods.forEach(good => {
+    this.filteredGoods.forEach(good => {
       const goodItem = new GoodsItem(good.product_name, good.price);
       listHtml += goodItem.render();
     });
@@ -85,9 +59,61 @@ class GoodsList{
     return this.goods.reduce((prev,{price}, array) => prev + price, 0);
   }
 
+  filterGoods(value){
+    const regexp = new RegExp(value, 'i');
+    this.filteredGoods = this.goods.filter(good => regexp.test(good.product_name));
+    this.render();
+  }
 }
+const searchButton = document.querySelector('.search-button');
+searchButton.addEventListener('click', (e) => {
+  const searchInput = document.querySelector('.goods-search');
+  const value = searchInput.value;
+  list.filterGoods(value);
+});
 
 const list = new GoodsList();
 list.fetchGoods(() => {
   list.render();
+});
+
+//Form validation
+
+const inputName = document.getElementById('name');
+const inputPhone = document.getElementById('phone');
+const inputMail = document.getElementById('mail');
+const inputMessage = document.getElementById('message');
+const inputSend = document.getElementById('send');
+
+inputSend.addEventListener('click', ()=>{
+  const nameString = inputName.value;
+  const phoneString = inputPhone.value;
+  const mailString = inputMail.value;
+
+  const regExpName = /[^A-z,^А-я]/g;
+  const regExpPhone = /(\+7\(\d{3}\)\d{3}-\d{4})$/;
+  const regExpMail = /^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$/;
+
+  const resName = regExpName.test(nameString);
+  const resPhone = regExpPhone.test(phoneString);
+  const resMail = regExpMail.test(mailString);
+
+  if (resName) {
+    inputName.classList.add('red-border');
+  }
+  else{
+    inputName.classList.remove('red-border');
+  }
+  if (!resPhone) {
+    inputPhone.classList.add('red-border');
+  }
+  else{
+    inputPhone.classList.remove('red-border');
+  }
+  if (!resMail) {
+    inputMail.classList.add('red-border');
+  }
+  else{
+    inputMail.classList.remove('red-border');
+  }
 });
