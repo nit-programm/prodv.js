@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <div>
+                {{shop}}
+                <goods-item content="red" v-bind:count="color"></goods-item>
+                <goods-item content="blue" count="110"></goods-item>
+                <goods-item content="black" count="120"></goods-item>
+                <goods-item content="green" count="130"></goods-item>
+            </div>
+            <div class="right-container">
+                <input type="text" v-model="searchString">
+                <button v-on:click="goodsFilter">Filter</button>
+                <button v-on:click="setVision">Basket</button>
+            </div>
+        </div>
+        <div class="body" v-if="vision">
+            <div v-bind:title="item.title" class="goods-item" v-for="(item, index) in goodsFiltered" v-on:click="fu('test',$event)">
+                <div>{{item.title}}</div>
+                <div>img {{index}}</div>
+                <div>{{item.price}}</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

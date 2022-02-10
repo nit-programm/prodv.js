@@ -65,7 +65,9 @@ class GoodsList{
     this.render();
   }
 }
+
 const searchButton = document.querySelector('.search-button');
+
 searchButton.addEventListener('click', (e) => {
   const searchInput = document.querySelector('.goods-search');
   const value = searchInput.value;
