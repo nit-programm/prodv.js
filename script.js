@@ -79,6 +79,53 @@ list.fetchGoods(() => {
   list.render();
 });
 
+Vue.component('goods-item', {
+  props: ['item'],
+  template: `
+      <div class="goods-item">
+         <div>{{ item.product_name }}</div>
+         <div></div>
+         <div>{{ item.price }}</div>
+      </div>
+  `,
+});
+
+Vue.component('basket-cart', {
+  template: `
+      <div class="basket-cart"></div>
+  `,
+});
+
+Vue.component('basket-goods-item', {
+  props: ['item'],
+  template: `
+      <div class="basket-goods-item"></div>
+  `,
+});
+
+
+const app = new Vue({
+  el: '#app',
+  data: {
+    goods:GOODS,
+    goodsFiltered:GOODS,
+    basketCartVision : true,
+    search : /(\B'|'\B)/,
+  },
+  methods:{
+    filterGoods: function(){
+      this.filterGoods = this.goods.filter(({ title }) => {
+        return new RegExp(this.search, 'i').test(title);
+      })
+    },
+    filteredGoods: function(){
+
+    }
+  }
+
+})
+
+
 //Form validation
 
 const inputName = document.getElementById('name');

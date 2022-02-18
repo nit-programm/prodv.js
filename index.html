@@ -7,13 +7,18 @@
 <body>
   <header class="header">
     <div class="search-block">
-      <input type="text" class="goods-search" />
-      <button class="search-button" type="button">Искать</button>
+      <input type="text" class="goods-search" v-model="search"/>
+      <button class="search-button" type="button" v-on:click="filterGoods">Искать</button>
+    </div>
+    <div class="basket-cart" v-if="basketCartVision">
+
     </div>
     <button class="cart-button" type="button">Корзина</button>
   </header>
-  <main>
-    <div class="goods-list"></div>
+  <main id="app">
+    <div class="goods-list">
+      <goods-item v-for="item in goodsFiltered" :item="item"></goods-item>
+    </div>
   </main>
   <form action="" class="form">
     <label for="name">Введите имя</label><input id="name" type="text">
@@ -23,7 +28,6 @@
     <input type="button" value="Отправить" class="button" id="send">
   </form>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  
   <script src="script.js"></script>
 </body>
 </html>
